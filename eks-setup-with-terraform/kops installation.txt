@@ -1,10 +1,4 @@
-<<kops
-Landmark Technologies 
-Tel: +1 437 215 2483 
-mylandmarktech@gailcom 
-www.mylandmarktech.com 
-kops
-Setup Kubernetes (K8s) Cluster on AWS Using KOPS
+# kops Setup Kubernetes (K8s) Cluster on AWS Using KOPS
 
 #!/bin/bash
 #1) Create Ubuntu EC2 instance
@@ -13,7 +7,7 @@ Setup Kubernetes (K8s) Cluster on AWS Using KOPS
 
  sudo apt update -y
  sudo apt install unzip wget -y
- sudo curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
+ sudo curl https://s3.amazonaws.com/aws-cli2/awscli-bundle.zip -o awscli-bundle.zip
  sudo apt install unzip python -y
  sudo unzip awscli-bundle.zip
  sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
@@ -23,7 +17,7 @@ Setup Kubernetes (K8s) Cluster on AWS Using KOPS
 
  	#Install wget if not installed
  	sudo apt install wget -y
- 	sudo wget https://github.com/kubernetes/kops/releases/download/v1.16.1/kops-linux-amd64
+ 	sudo wget https://github.com/kubernetes/kops/releases/download/v1.24.1/kops-linux-amd64
  	sudo chmod +x kops-linux-amd64
  	sudo mv kops-linux-amd64 /usr/local/bin/kops
  
@@ -32,7 +26,7 @@ Setup Kubernetes (K8s) Cluster on AWS Using KOPS
  sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
  sudo chmod +x ./kubectl
  sudo mv ./kubectl /usr/local/bin/kubectl
- aws s3 mb s3://nubonglegah.k8.local
+ aws s3 mb s3://eks-dev.k8.local
  aws s3 ls
 
 5) Create an IAM role from Consloe or CLI with below Policies.
@@ -50,12 +44,12 @@ You Created. --> Save.
 
 6) create an S3 bucket Execute below commond in KOPS Server use unique bucket name if you get bucket name exists error.
 
-	aws s3 mb s3://nubonglegah.k8.local
+	aws s3 mb s3://eks-dev.k8.local
 	aws s3 ls
 	
     ex:
 	# S3 bucket name should be unique across AWS
-	aws s3 mb s3://simonlegah.k8s.local    s3://nubong.k8s.local
+	aws s3 mb s3://xyz.k8s.local    
      
 	Expose environment variable:
 
@@ -63,7 +57,7 @@ You Created. --> Save.
     vi .bashrc
 	
 	# Give Unique Name And S3 Bucket which you created.
-	export NAME=s3://legah2045.k8.local
+	export NAME=s3://eks-dev.k8.local
 	export KOPS_STATE_STORE=s3://legah2045.k8.local
  
     source .bashrc
