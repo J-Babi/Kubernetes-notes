@@ -5,7 +5,7 @@
 #
 
 resource "aws_iam_role" "demo-node" {
-  name = "eks-landmark-node"
+  name = "eks-dev-node"
 
   assume_role_policy = <<POLICY
 {
@@ -94,7 +94,7 @@ resource "aws_iam_role_policy_attachment" "demo-node-AmazonEC2ContainerRegistryR
 }
 
 resource "aws_eks_node_group" "demo" {
-  cluster_name    = aws_eks_cluster.demo.name
+  cluster_name    = aws_eks_cluster.eks-dev.name
   node_group_name = "demo"
   node_role_arn   = aws_iam_role.demo-node.arn
   subnet_ids      = aws_subnet.demo[*].id
@@ -106,7 +106,7 @@ resource "aws_eks_node_group" "demo" {
 
   scaling_config {
     desired_size = 2
-    max_size     = 200
+    max_size     = 10
     min_size     = 2
   }
 
